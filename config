@@ -45,8 +45,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
+#bindsym $mod+Return exec --no-startup-id alacritty
 bindsym $mod+Return exec --no-startup-id kitty
-
 # kill focused window
 bindsym $mod+q kill
 
@@ -113,12 +113,12 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1| Discord"
+set $ws1 "1| Chat"
 set $ws2 "2| Game"
-set $ws3 "3| Librewolf"
+set $ws3 "3| Web"
 set $ws4 "4| Terminal"
-set $ws5 "5| Text Editor"
-set $ws6 "6| Kdenlive"
+set $ws5 "5| "
+set $ws6 "6| "
 set $ws7 "7| "
 set $ws8 "8| Audio Management"
 set $ws9 "9| File Manager"
@@ -137,16 +137,16 @@ bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # assigning workspaces
 assign [class="discord"] $ws1
@@ -209,7 +209,7 @@ bindsym $mod+r mode "resize"
 #look and feel
 
 # class                 border  bground text    indicator child_border
-client.focused          #6272a4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused          #000000 #6272A4 #F8F8F2 #000000   #000000
 client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
 client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
 client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
@@ -217,24 +217,32 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
 client.background       #F8F8F2
 
-#bar {
-#
-#  status_command i3blocks
-#
-#  colors {
-#	background #282A36
-#	statusline #F8F8F2
-#	separator  #44475A 
-#
-#	focused_workspace  #44475A #44475A #F8F8F2
-#	active_workspace   #282A36 #44475A #F8F8F2 
-#	inactive_workspace #282A36 #282A36 #BFBFBF
-#	urgent_workspace   #FF5555 #FF5555 #F8F8F2
-#	binding_mode       #FF5555 #FF5555 #F8F8F2
-#	}
-#
-#   position top
-#}
+bar {
+
+  status_command bar {
+
+	position top
+    status_command /usr/share/bumblebee-status/bumblebee-status \
+     -m spotify cpu sensors memory pasink pasource datetime\
+     -p memory.format="{percent:05.02f}%" pasink.percent_change=5% pasource.percent_change=5% \
+	 datetime.format="%b %d %Y %H:%M:%S EST" \
+     -t greyish-powerline
+
+  colors {
+    background #000000
+    statusline #000000
+    separator  #000000
+
+    focused_workspace  #000000 #4f4f4f #ffffff
+    active_workspace   #4f4f4f #0d0d0d #ffffff
+    inactive_workspace #4f4f4f #0d0d0d #ffffff
+    urgent_workspace   #4f4f4f #ff0000 #000000
+    binding_mode       #4f4f4f #0d0d0d #ffffff
+  }
+
+
+}
+
 
 #hide_edge_borders smart	#none|vertical|horizontal|both|smart
 
@@ -252,16 +260,17 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 
 #set walpaper
-exec --no-startup-id feh --bg-scale /usr/share/backgrounds/archlinux-login-backgrounds/att-02.jpg
+exec --no-startup-id feh --bg-scale /usr/share/backgrounds/arcolinux/koi-fishes-1920x1080.png
 
 
 # autostart programs
-exec --no-startup-id picom --config /home/delta/.config/picom/picom.conf
+exec --no-startup-id picom #--config /home/delta/.config/picom/picom.conf
 exec --no-startup-id deadd-notification-center
 exec --no-startup-id discord
 exec --no-startup-id librewolf
 #exec youtubemusic-nativefier
 exec --no-startup-id LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify
+exec --no-startup-id xrandr --output HDMI1 --mode 1920x1080
 
 # keybinds
 bindsym alt+shift+e exec --no-startup-id dolphin
@@ -280,4 +289,4 @@ bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t ima
 bindsym $mod+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
 # polybar
-exec_always --no-startup-id sh /home/delta/polybar-collection/launch.sh
+#exec_always --no-startup-id sh /home/delta/polybar-collection/launch.sh
