@@ -150,7 +150,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # assigning workspaces
 assign [class="discord"] $ws1
-assign [class="librewolf"] $ws3
+assign [class="LibreWolf"] $ws3
 assign [class="kdenlive"] $ws6
 assign [class="Nemo"] $ws9
 assign [class="dolphin"] $ws9
@@ -209,9 +209,9 @@ bindsym $mod+r mode "resize"
 #look and feel
 
 # class                 border  bground text    indicator child_border
-client.focused          #000000 #6272A4 #F8F8F2 #000000   #000000
+client.focused          #4f4f4f #6272A4 #F8F8F2 #000000   #4f4f4f
 client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.unfocused        #000000 #282A36 #BFBFBF #282A36   #000000
 client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
 client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
@@ -223,7 +223,7 @@ bar {
 
 	position top
     status_command /usr/share/bumblebee-status/bumblebee-status \
-     -m spotify cpu sensors memory pasink pasource datetime\
+     -m title spotify cpu memory pasink pasource datetime\
      -p memory.format="{percent:05.02f}%" pasink.percent_change=5% pasource.percent_change=5% \
 	 datetime.format="%b %d %Y %H:%M:%S EST" \
      -t greyish-powerline
@@ -265,12 +265,13 @@ exec --no-startup-id feh --bg-scale /usr/share/backgrounds/arcolinux/koi-fishes-
 
 # autostart programs
 exec --no-startup-id picom #--config /home/delta/.config/picom/picom.conf
-exec --no-startup-id deadd-notification-center
+#exec --no-startup-id deadd-notification-center
+exec --no-startup-id dunst -conf ~/.config/Dunst/dunstrc
 exec --no-startup-id discord
 exec --no-startup-id librewolf
 #exec youtubemusic-nativefier
 exec --no-startup-id LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify
-exec --no-startup-id xrandr --output HDMI1 --mode 1920x1080
+exec --no-startup-id xrandr --output HDMI1 --mode 1600x900 --rate 74.89
 
 # keybinds
 bindsym alt+shift+e exec --no-startup-id dolphin
