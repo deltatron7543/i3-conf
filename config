@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:JetBrains Mono 9
+font pango:JetBrains Mono 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -52,7 +52,7 @@ bindsym $mod+q kill
 
 # start a program launcher
 
-#bindsym mod1+space exec --no-startup-id rofi -show run
+#bindsym mod4+space exec --no-startup-id rofi -show run
 #bindsym $mod+d exec --no-startup-id rofi -show run
 
 bindsym mod1+space exec --no-startup-id dmenu_run -l 7 -nb "#000000" -nf "#4649f1" -fn JetBrainsMono
@@ -161,14 +161,15 @@ assign [class="dolphin"] $ws9
 assign [class="youtubemusic-nativefier"] $ws10
 for_window [class="Spotify"] move to workspace $ws10
 
+# no float for pavucontrol-qt
+for_window [class="pavucontrol-qt"] floating disable
+
 # title bar
 
-#no title bar
-#for_window [class=".*"] border pixel 0
+title_align center #left|center|right
+for_window [all] title_window_icon off
+for_window [all] border pixel 2
 
-title_align center # left|center|right
-for_window [all] title_window_icon on
-for_window [all] border pixel 3
 # gaps
 gaps outer 2
 gaps inner 5
@@ -194,10 +195,10 @@ mode "resize" {
         bindsym semicolon resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -211,13 +212,13 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 
 # look and feel
-
-# class                 border  bground text    indicator child_border
-client.focused          #4f4f4f #6272A4 #F8F8F2 #000000   #4f4f4f
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #000000 #282A36 #BFBFBF #282A36   #000000
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+#4f4f4f
+# class                 border    bground   text      indicator child_border
+client.focused          #4649f100 #00000000 #4649f1   #000000   #bd93f9
+client.focused_inactive #44475A00 #00000000 #F8F8F2   #44475A   #44475A
+client.unfocused        #00000000 #00000000 #FFFFFF99 #282A36   #000000
+client.urgent           #44475A   #FF555500 #F8F8F2   #FF5555   #FF5555
+client.placeholder      #282A36   #282A3600 #F8F8F2   #282A36   #282A36
 
 client.background       #F8F8F2
 
@@ -230,14 +231,14 @@ bar {
 
   colors {
     background #00000030
-    statusline #000000
-    separator  #000000
+    statusline #FFFFFF
+    separator  #FFFFFF
 
-    focused_workspace  #00000033 #00000033 #4649f1
+    focused_workspace  #00000033 #00000033 #bd93f9
     active_workspace   #00000033 #00000033 #4649f1
     inactive_workspace #00000033 #00000033 #FFFFFF
-    urgent_workspace   #FF0000 #00000033 #FF0000
-    binding_mode       #FF0000 #00000033 #FF0000
+    urgent_workspace   #FF0000   #00000033 #FF0000
+    binding_mode       #FF0000   #00000033 #FF0000
   }
 
 }
@@ -257,7 +258,7 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # set walpaper
-exec --no-startup-id feh --bg-scale ~/Wallpapers/archlinux-login-backgrounds/background28.jpg
+exec --no-startup-id feh --bg-fill /home/delta/Wallpapers/archlinux/archlinux-7.jpg
 
 # autostart programs
 exec --no-startup-id picom #--config /home/delta/.config/picom/picom.conf
@@ -265,10 +266,8 @@ exec --no-startup-id picom #--config /home/delta/.config/picom/picom.conf
 exec --no-startup-id dunst -conf ~/.config/Dunst/dunstrc
 exec --no-startup-id discord
 exec --no-startup-id librewolf
-#exec youtubemusic-nativefier
-#exec --no-startup-id LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify
-exec --not-startup-id spotify
-exec --no-startup-id xrandr --output HDMI-2 --mode 1600x900 --rate 74.89
+exec --no-startup-id spotify
+exec --no-startup-id xrandr --output HDMI-2 --mode 1920x1080 --rate 74.97
 
 # lock screen
 bindsym $mod+shift+z exec --no-startup-id archlinux-logout
@@ -280,3 +279,4 @@ bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t ima
 
 # screenshot part of the screen and copy it to clipboard
 bindsym $mod+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+bindsym $mod+Shift+S exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
